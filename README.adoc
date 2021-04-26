@@ -1,0 +1,50 @@
+= Bankuish Coding challege
+
+This repo contains the code of the Bankuish challenge.
+
+== The Challenge
+
+We have a microservice architecture and your task is to develop a new microservice.
+
+During a preliminary meeting, the CEO has given some quick notes about a new feature:
+
+* The microservice will retrieve up to a 5 random Rick and Morty characters sorted by popularity from https://rickandmortyapi.com
+* Any numer of characters can be excluded using the character id.
+* The popularity index must be included in the response along with all the character information.
+* All the requests should be stored in order to analyze which kind of queries are sent by the users.
+
+If you findthe CEO notes are not clear enough, feel free to ask any questions ;)
+
+The team doesn't know the implementation details of the microservices infrastructure yet, but the sual associated problems would need to be solved, so let's keep this in mind during the design.
+
+We don't expect a final solution from you. Kindly invest a few hours and provide what you consider a good base to start working in this microservice.
+
+
+== A word about the design
+
+This microservice is pretty minimal and connection with other services have been mocked if they aren't available. It has to be considered more a PoC/test and it's far form a production-grade microservice (scalability, throughput, testing, exception handling and messages etc.), but it can be used in a quick demo.
+
+== How to Build
+
+The project is self contained, it is assumed `docker` is available on the system; once cloned the repo, enter the directory and type:
+
+[source,shell]
+----
+./mvnw package
+----
+
+This will create the `jar` artifact with all the bundled dependencies into `target` folder and a docker image named ``
+
+=== To run the example
+
+[source,shell]
+----
+docker run --rm -p 8080:8080 com.bankuish/challenge:0.1.0-SNAPSHOT
+----
+
+and in another terminal, to retrieve 3 characters and exclude the first 8:
+
+[source,shell]
+----
+curl localhost:8080/characters -H 'Content-type: application/json' -d '{"numOfCharacters": 3, "excludedIds": [1,4,2,3,6,5,7,8]}'
+----
